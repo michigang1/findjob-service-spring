@@ -1,8 +1,10 @@
 package com.springcourse.findjob.repository
 
 import com.springcourse.findjob.models.Vacancy
+import org.springframework.stereotype.Repository
 
-class GeneralReposictoryImpl : GeneralRepository {
+@Repository
+class GeneralRepositoryImpl : GeneralRepository {
     val vacancies = mutableListOf<Vacancy>()
     override fun createVacancy(vacancy: Vacancy) = vacancies.add(vacancy)
 
@@ -18,7 +20,7 @@ class GeneralReposictoryImpl : GeneralRepository {
         return vacancies
     }
 
-    override fun getByKeyWordVacancy(keyWord: String): Vacancy {
-        return vacancies.find { it.requirements.contains(keyWord) }!!
+    override fun getByKeyWordVacancy(keyWord: String): List<Vacancy> {
+        return vacancies.filter { it.requirements.contains(keyWord) }
     }
 }
