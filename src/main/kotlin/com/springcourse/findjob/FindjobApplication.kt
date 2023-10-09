@@ -10,6 +10,4 @@ class FindjobApplication
 fun main(args: Array<String>) {
 	runApplication<FindjobApplication>(*args)
 
-	@Bean
-
 }

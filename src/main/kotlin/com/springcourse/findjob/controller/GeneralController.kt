@@ -5,30 +5,71 @@ import com.springcourse.findjob.service.GeneralService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
+@RequestMapping("/vacancies")
 class GeneralController(@Autowired private val generalService: GeneralService) {
-    @GetMapping("/vacancies")
+    //get list of vacancies
+    @GetMapping("/")
     @ResponseBody
-    fun getAllVacancies() = generalService.getAllVacancies()
+    fun getAllVacancies() : List<Vacancy> {
+        return generalService.getAllVacancies()
+    }
 
-    @PostMapping("/vacancies")
-    fun createVacancy(@RequestBody vacancy: Vacancy) = generalService.createVacancy(vacancy)
-
-    @PutMapping("/vacancies/{id}")
+    @PostMapping("/")
     @ResponseBody
-    fun upgradeVacancy(@PathVariable("id") id: Int, @RequestBody vacancy: Vacancy) = generalService.upgradeVacancy(id, vacancy)
-
-    @DeleteMapping("/vacancies/{id}")
-    fun deleteVacancy(@PathVariable("id") id: Int) = generalService.deleteVacancy(id)
-
-    @GetMapping("/vacancies/search")
-    fun getByKeyWordVacancy(@RequestParam("keyWord") keyWord: String) = generalService.getByKeyWordVacancy(keyWord)
+    fun createVacancy(@RequestParam("title", required = false) title: String?,
+                      @RequestParam("description", required = false) description: String?,
+                      @RequestParam("requirements", required = false) requirements: String?,
+                      @RequestBody(required = false) vacancy: Vacancy?): Vacancy {
+        if (vacancy != null)
+            generalService.createVacancy(vacancy)
+        else if (title != null && description != null && requirements != null) {
+            val vac = Vacancy(title, description, requirements)
+            generalService.createVacancy(vac)
+        }
+        println("Added new vacancy")
+        return getAllVacancies().last()
+    }
+    @PutMapping("/")
+    @ResponseBody
+    fun upgradeVacancy(@RequestParam("id") id: Int,
+                       @RequestParam("requirements", required = false) requirements: String?,
+                       @RequestParam("description", required = false) description: String?,
+                       @RequestParam("title", required = false) title: String?,
+                       @RequestBody(required = false) vacancy: Vacancy?): Vacancy {
+        if (vacancy != null)
+            generalService.upgradeVacancy(id, vacancy)
+        else if (title != null || description != null || requirements != null) {
+            val vac = Vacancy(title ?: getAllVacancies().get(id).title,
+                    description ?: getAllVacancies().get(id).description,
+                    requirements ?: getAllVacancies().get(id).requirements)
+            generalService.upgradeVacancy(id, vac)
+        }
+        println("Changed vacancy with id=$id")
+        return getAllVacancies().get(id)
+    }
+    //delete vacancy
+    @DeleteMapping("/")
+    @ResponseBody
+    fun deleteVacancy(@RequestParam("id") id: Int) : Vacancy {
+        val vacToDel = generalService.getAllVacancies().get(id)
+        generalService.deleteVacancy(id)
+        println("Deleted vacancy with id=$id")
+        return vacToDel
+    }
+    //find vacancies by keyword
+    @GetMapping("/search/")
+    @ResponseBody
+    fun getByKeyWordVacancy(@RequestParam("keyWord") keyWord: String) : List<Vacancy> {
+        println("Invoked search by keyword")
+        return generalService.getByKeyWordVacancy(keyWord)
+    }
 }
