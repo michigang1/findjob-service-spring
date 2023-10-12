@@ -4,34 +4,34 @@ import com.springcourse.findjob.models.Vacancy
 import com.springcourse.findjob.service.GeneralService
 import org.springframework.web.bind.annotation.*
 
-@RequestMapping("/company/vacancies")
+@RequestMapping("/company/{company}/vacancies")
 @RestController
-class CompanyControllerImpl(private val generalService: GeneralService) : GeneralController(generalService) {
-
+class CompanyControllerImpl(private val generalService: GeneralService) {
+    @GetMapping("/")
+    fun getCompanyVacancies(@PathVariable company: String) : List<Vacancy> {
+        println("${company} listed all own vacancies")
+        return generalService.getCompanyVacancies(company)
+    }
     @PostMapping("/")
-    @ResponseBody
-    override fun createVacancy(@RequestBody vacancy: Vacancy): Vacancy {
+    fun createVacancy(@PathVariable company: String, @RequestBody vacancy: Vacancy): Vacancy {
+        vacancy.description.company = company
         generalService.createVacancy(vacancy)
-        println("Added new vacancy")
+        println("${company} added new vacancy")
         return generalService.getAllVacancies().last()
     }
     @PutMapping("/")
-    @ResponseBody
-    override fun upgradeVacancy(@RequestBody vacancy: Vacancy): Vacancy {
+    fun upgradeVacancy(@PathVariable company: String, @RequestBody vacancy: Vacancy): Vacancy {
+        vacancy.description.company = company
         generalService.upgradeVacancy(vacancy.id, vacancy)
-        println("Changed vacancy with id=${vacancy.id}")
+        println("${company} changed vacancy with id=${vacancy.id}")
         return generalService.getAllVacancies().get(vacancy.id)
     }
     //delete vacancy
     @DeleteMapping("/")
-    @ResponseBody
-    override fun deleteVacancy(@RequestParam("id") id: Int) : Vacancy {
-        val vacToDel = getAllVacancies().get(id)
+    fun deleteVacancy(@PathVariable company: String, @RequestParam("id") id: Int) : Vacancy {
+        val vacToDel = generalService.getAllVacancies().get(id)
         generalService.deleteVacancy(id)
-        println("Deleted vacancy with id=$id")
+        println("${company} deleted vacancy with id=$id")
         return vacToDel
-    }
-    override fun getByKeyWordVacancy(keyWord: String): List<Vacancy> {
-        TODO("Not yet implemented")
     }
 }

@@ -25,14 +25,14 @@ class FindjobApplication {
 			Vacancy(
 				list.count(),
 				"Unity developer",
-				VacancyDescription(),
+				VacancyDescription(company = "Unity"),
 				VacancyRequirements())
 		)
 		list.add(
 			Vacancy(
 				list.count(),
 				"Waiter",
-				VacancyDescription(),
+				VacancyDescription(company = "Clode Monet"),
 				VacancyRequirements())
 		)
 		return list

@@ -14,6 +14,11 @@ class GeneralServiceImpl(@Autowired private val generalRepository: GeneralReposi
     override fun deleteVacancy(id: Int) = generalRepository.deleteVacancy(id)
 
     override fun getAllVacancies() = generalRepository.getAllVacancies()
+    override fun getCompanyVacancies(name: String) : List<Vacancy> {
+        return generalRepository.getAllVacancies().filter {
+            it.description.company.contains(name)
+        }
+    }
 
     override fun getByKeyWordVacancy(keyWord: String) = generalRepository.getByKeyWordVacancy(keyWord)
 }
