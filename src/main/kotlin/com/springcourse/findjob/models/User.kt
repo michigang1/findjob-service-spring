@@ -1,6 +1,8 @@
 package com.springcourse.findjob.models
 
+import org.springframework.beans.factory.annotation.Autowired
+
 data class User(
-    val name: String,
+    val username: String,
     val isWorker: Boolean,
 )
