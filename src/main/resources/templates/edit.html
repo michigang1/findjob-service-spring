@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+
+    <h3>Upgrade Your Vacancy</h3>
+    <hr/>
+
+    <form th:action="@{|/company/${company}/vacancies/save?vacancyId=${vacancyEdit.id}|}" th:object="${vacancyEdit}" th:method="POST">
+
+        <input type="text" th:field="${vacancyEdit.title}" class="form-control col-4 mb-4" placeholder="Enter Title" />
+
+        <input type="text" th:field="${vacancyEdit.description.schedule}" class="form-control col-4 mb-4" placeholder="Enter schedule" />
+
+        <input type="text" th:field="${vacancyEdit.description.phoneNum}" class="form-control col-4 mb-4" placeholder="Enter phone number" />
+
+        <input type="text" th:field="${vacancyEdit.requirements.age}" class="form-control col-4 mb-4" placeholder="Enter age" />
+
+        <input type="text" th:field="${vacancyEdit.requirements.experienceAge}" class="form-control col-4 mb-4" placeholder="Enter experience age" />
+
+        <input type="text" th:field="${vacancyEdit.requirements.educationDegree}" class="form-control col-4 mb-4" placeholder="Enter education degree" />
+
+        <input type="text" th:field="${vacancyEdit.requirements.otherReqs}" class="form-control col-4 mb-4" placeholder="Enter other reqs" />
+
+
+        <button type="submit"  class="btn btn-primary col-2">Save</button>
+        <input type="hidden" th:field="${vacancyEdit.id}" />
+
+    </form>
+    <hr/>
+    <a th:href="@{/list}">Back to list</a>
+</div>
+
+</body>
+</html>

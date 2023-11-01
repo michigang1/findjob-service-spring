@@ -1,11 +1,10 @@
 package com.springcourse.findjob.models
 
-import com.fasterxml.jackson.databind.BeanDescription
-import javax.swing.SizeRequirements
+import org.springframework.context.annotation.Bean
 
 data class Vacancy(
     var id: Int = 0,
-    val title: String,
+    val title: String = "None",
     val description: VacancyDescription,
     val requirements: VacancyRequirements,
 )

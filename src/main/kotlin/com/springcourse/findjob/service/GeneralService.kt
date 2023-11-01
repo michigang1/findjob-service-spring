@@ -8,5 +8,6 @@ interface GeneralService{
     fun deleteVacancy(id: Int)
     fun getAllVacancies(): List<Vacancy>
     fun getCompanyVacancies(name: String): List<Vacancy>
+    fun getVacancyById(id: Int): Vacancy
     fun getByKeyWordVacancy(keyWord: String): List<Vacancy>
 }

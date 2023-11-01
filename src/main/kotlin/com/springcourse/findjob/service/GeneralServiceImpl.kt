@@ -14,10 +14,16 @@ class GeneralServiceImpl(@Autowired private val generalRepository: GeneralReposi
     override fun deleteVacancy(id: Int) = generalRepository.deleteVacancy(id)
 
     override fun getAllVacancies() = generalRepository.getAllVacancies()
-    override fun getCompanyVacancies(name: String) : List<Vacancy> {
+    override fun getCompanyVacancies(name: String): List<Vacancy> {
         return generalRepository.getAllVacancies().filter {
-            it.description.company.contains(name)
+            it.description.company.lowercase() == name.lowercase()
         }
+    }
+
+    override fun getVacancyById(id: Int): Vacancy {
+        return generalRepository.getAllVacancies().find {
+            it.id == id
+        } ?: throw Exception("Vacancy with id=$id not found")
     }
 
     override fun getByKeyWordVacancy(keyWord: String) = generalRepository.getByKeyWordVacancy(keyWord)

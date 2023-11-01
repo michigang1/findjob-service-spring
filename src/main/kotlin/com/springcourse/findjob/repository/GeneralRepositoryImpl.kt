@@ -1,8 +1,6 @@
 package com.springcourse.findjob.repository
 
 import com.springcourse.findjob.models.Vacancy
-import com.springcourse.findjob.models.VacancyDescription
-import com.springcourse.findjob.models.VacancyRequirements
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Repository
 
@@ -16,7 +14,11 @@ class GeneralRepositoryImpl : GeneralRepository {
     }
 
     override fun upgradeVacancy(id: Int, vacancy: Vacancy) {
-        vacancies[id] = vacancy
+        vacancies[id] = vacancies[id].copy(
+            title = vacancy.title,
+            description = vacancy.description,
+            requirements = vacancy.requirements,
+        )
     }
 
     override fun deleteVacancy(id: Int) {
