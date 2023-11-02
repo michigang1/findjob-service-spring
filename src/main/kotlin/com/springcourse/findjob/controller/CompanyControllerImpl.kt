@@ -2,8 +2,9 @@ package com.springcourse.findjob.controller
 
 import com.springcourse.findjob.models.Vacancy
 import com.springcourse.findjob.service.GeneralService
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.ui.Model
+import org.springframework.validation.BindingResult
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.ModelAndView
 
@@ -30,14 +31,13 @@ class CompanyControllerImpl(private val generalService: GeneralService) {
         return generalService.getAllVacancies().last()
     }
 
-    @PostMapping("/save")
+    @PutMapping("/save")
     fun upgradeVacancy(
         @PathVariable("company") company: String,
-        @RequestParam("vacancyId") id: Int,
-        @ModelAttribute vacancy: Vacancy,
+        @ModelAttribute("vacancyEdit") vacancyEdit: Vacancy
     ): String {
-        generalService.upgradeVacancy(id, vacancy)
-        println("$company changed vacancy with id=${vacancy.id}")
+        generalService.upgradeVacancy(vacancyEdit.id, vacancyEdit)
+        println("$company changed vacancy with id=${vacancyEdit.id}")
         return "redirect:/"
     }
 

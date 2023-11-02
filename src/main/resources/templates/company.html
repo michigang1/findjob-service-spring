@@ -29,11 +29,11 @@
         <td th:text="${vacancy.requirements.educationDegree}"/>
         <td th:text="${vacancy.requirements.otherReqs}"/>
         <td>
-            <form th:method="GET" th:action="@{|/company/${vacancy.description.company.toLowerCase()}/vacancies/edit?vacancyId=${vacancy.id}|}">
-                <button type="submit" name="submit" value="value" class="link-button">EDIT</button>
+            <form th:method="GET" th:action="@{|/company/${vacancy.description.company.toLowerCase()}/vacancies/edit|}">
+                <button type="submit" name="vacancyId" th:value="${vacancy.id}" class="btn btn-link">EDIT</button>
             </form> |
-            <form th:method="DELETE" th:action="@{|/company/${vacancy.description.company.toLowerCase()}/vacancies/delete?vacancyId=${vacancy.id}|}">
-                <button type="submit" name="submit" value="value" class="link-button">DELETE</button>
+            <form th:method="DELETE" th:action="@{|/company/${vacancy.description.company.toLowerCase()}/vacancies/delete|}">
+                <button type="submit" name="vacancyId" th:value="${vacancy.id}" class="btn btn-link">DELETE</button>
             </form>
         </td>
     </tr>
