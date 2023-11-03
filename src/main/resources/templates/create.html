@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link th:href="@{/styles/editStyle.css}" rel="stylesheet" />
+</head>
+<body>
+<div class="container">
+
+  <h3>Create New Vacancy</h3>
+  <hr/>
+
+  <form th:action="@{|/company/${company}/vacancies/create|}" th:object="${vacancyAdd}" th:method="POST">
+    <table>
+      <thead>
+      <tr>
+        <th colspan="2">Title</th>
+        <td style="display: none;"/>
+      </tr>
+      <tr>
+        <th colspan="2"><input th:field="*{title}" class="form-control col-4 mb-4" placeholder="Enter Title" /></th>
+        <td style="display: none;"/>
+      </tr>
+      </thead>
+      <tr>
+        <td>Schedule</td>
+        <td><input type="text" th:field="*{description.schedule}" class="form-control col-4 mb-4" placeholder="Enter schedule" /></td>
+      </tr>
+      <tr>
+        <td>Phone number</td>
+        <td><input type="text" th:field="*{description.phoneNum}" class="form-control col-4 mb-4" placeholder="Enter phone number" /></td>
+      </tr>
+      <tr>
+        <td>Age</td>
+        <td><input type="number" th:field="*{requirements.age}" class="form-control col-4 mb-4" placeholder="Enter age" /></td>
+      </tr>
+      <tr>
+        <td>Experience age</td>
+        <td><input type="number" th:field="*{requirements.experienceAge}" class="form-control col-4 mb-4" placeholder="Enter experience age" /></td>
+      </tr>
+      <tr>
+        <td>Education degree</td>
+        <td><textarea type="text" th:field="*{requirements.educationDegree}" class="form-control col-4 mb-4" placeholder="Enter age" /></td>
+      </tr>
+      <tr>
+        <td>Other requirements</td>
+        <td><textarea type="text" th:field="*{requirements.otherReqs}" class="form-control col-4 mb-4" placeholder="Other requirements" /></td>
+      </tr>
+    </table>
+    <input type="hidden" th:field="*{id}"/>
+
+    <input type="hidden" th:field="*{description.company}" />
+
+    <button type="submit" class="btn btn-primary col-2">Create</button>
+
+
+  </form>
+  <hr/>
+  <a th:href="@{/list}">Back to list</a>
+</div>
+
+</body>
+</html>

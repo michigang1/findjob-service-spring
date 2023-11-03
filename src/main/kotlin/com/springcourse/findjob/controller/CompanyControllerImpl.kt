@@ -1,6 +1,8 @@
 package com.springcourse.findjob.controller
 
 import com.springcourse.findjob.models.Vacancy
+import com.springcourse.findjob.models.VacancyDescription
+import com.springcourse.findjob.models.VacancyRequirements
 import com.springcourse.findjob.service.GeneralService
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
@@ -21,22 +23,36 @@ class CompanyControllerImpl(private val generalService: GeneralService) {
     }
 
     @PostMapping("/create")
-    fun createVacancy(@PathVariable company: String, @RequestBody vacancy: Vacancy, model: Model): Vacancy {
-        vacancy.description?.company = company
+    fun createVacancy(@PathVariable company: String, @ModelAttribute("vacancyAdd") vacancy: Vacancy, model: Model): ModelAndView {
+        val view = ModelAndView("redirect:http://localhost:8080/company/$company/vacancies/")
         generalService.createVacancy(vacancy)
-        println("$company added new vacancy")
 
-        return generalService.getAllVacancies().last()
+        return view
+    }
+
+    @GetMapping("/add")
+    fun showCreateVacancyView(@PathVariable("company") company: String): ModelAndView {
+        val mav = ModelAndView("create")
+        mav.addObject(
+            "vacancyAdd",
+            Vacancy(
+                id = 0,
+                description = VacancyDescription(company = company),
+                requirements = VacancyRequirements(),
+            ),
+        )
+        return mav
     }
 
     @PostMapping("/save")
     fun upgradeVacancy(
         @PathVariable("company") company: String,
-        @ModelAttribute("vacancyEdit") vacancyEdit: Vacancy
-    ): String {
+        @ModelAttribute("vacancyEdit") vacancyEdit: Vacancy,
+    ): ModelAndView {
+        val view = ModelAndView("redirect:http://localhost:8080/company/$company/vacancies/")
         generalService.upgradeVacancy(vacancyEdit.id, vacancyEdit)
         println("$company changed vacancy with id=${vacancyEdit.id}")
-        return "redirect:/"
+        return view
     }
 
     @GetMapping("/edit")

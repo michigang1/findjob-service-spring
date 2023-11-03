@@ -13,10 +13,25 @@ th,td{
 
 #edit > * {
     background-color: lightblue;
+    width: 100%;
+    height: 100%;
 }
 
 #delete > * {
     background-color: indianred;
     width: 100%;
     height: 100%;
+}
+
+#create > * {
+    background-color: lightgreen;
+    width: 100%;
+    height: 100%;
+}
+#buttons > * {
+    width: 100%;
+    height: 100%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+
 }
