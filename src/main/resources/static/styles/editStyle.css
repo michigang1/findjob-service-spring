@@ -1,0 +1,22 @@
+table{
+    width: max-content;
+}
+
+input{
+    text-align: center;
+    width: 100%;
+}
+
+table,th,td{
+    border: 1px solid grey;
+    text-align:center;
+}
+
+th,td{
+    padding:10px;
+}
+
+textarea {
+    min-width: 300px;
+    min-height: 150px;
+}

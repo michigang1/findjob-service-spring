@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Company Vacancies</title>
+    <link th:href="@{/styles/listStyle.css}" rel="stylesheet" />
 </head>
 <body>
 <
@@ -29,10 +30,12 @@
         <td th:text="${vacancy.requirements.educationDegree}"/>
         <td th:text="${vacancy.requirements.otherReqs}"/>
         <td>
-            <form th:method="GET" th:action="@{|/company/${vacancy.description.company.toLowerCase()}/vacancies/edit|}">
+            <form id="edit" th:method="GET" th:action="@{|/company/${vacancy.description.company.toLowerCase()}/vacancies/edit|}">
                 <button type="submit" name="vacancyId" th:value="${vacancy.id}" class="btn btn-link">EDIT</button>
-            </form> |
-            <form th:method="DELETE" th:action="@{|/company/${vacancy.description.company.toLowerCase()}/vacancies/delete|}">
+            </form>
+        </td>
+        <td>
+            <form id="delete" th:method="DELETE" th:action="@{|/company/${vacancy.description.company.toLowerCase()}/vacancies/delete|}">
                 <button type="submit" name="vacancyId" th:value="${vacancy.id}" class="btn btn-link">DELETE</button>
             </form>
         </td>

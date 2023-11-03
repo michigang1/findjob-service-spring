@@ -16,7 +16,7 @@ class GeneralServiceImpl(@Autowired private val generalRepository: GeneralReposi
     override fun getAllVacancies() = generalRepository.getAllVacancies()
     override fun getCompanyVacancies(name: String): List<Vacancy> {
         return generalRepository.getAllVacancies().filter {
-            it.description.company.lowercase() == name.lowercase()
+            it.description?.company?.lowercase() == name.lowercase()
         }
     }
 
