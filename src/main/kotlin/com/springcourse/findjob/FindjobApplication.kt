@@ -58,5 +58,5 @@ fun main(args: Array<String>) {
     val repo1 = ctx.getBean("initialVacancies")
     val repo2 = ctx.getBean("initialVacancies")
     println("Repo '1' hashcode: ${repo1.hashCode()}")
-    println("Repo '2' hashcode: ${repo1.hashCode()}")
+    println("Repo '2' hashcode: ${repo2.hashCode()}")
 }
