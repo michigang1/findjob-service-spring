@@ -31,15 +31,15 @@
 
 
         <tr th:each="vacancy : ${allVacancies}">
-            <td th:text="${vacancy.id}"/>
-            <td th:text="${vacancy.title}"/>
-            <td th:text="${vacancy.description.company}"/>
-            <td th:text="${vacancy.description.schedule}"/>
-            <td th:text="${vacancy.description.phoneNum}"/>
-            <td th:text="${vacancy.requirements.age}"/>
-            <td th:text="${vacancy.requirements.experienceAge}"/>
-            <td th:text="${vacancy.requirements.educationDegree}"/>
-            <td th:text="${vacancy.requirements.otherReqs}"/>
+            <td th:text="${#strings.escapeJavaScript(vacancy.id)}"/>
+            <td th:text="${#strings.escapeJavaScript(vacancy.title)}"/>
+            <td th:text="${#strings.escapeJavaScript(vacancy.description.company)}"/>
+            <td th:text="${#strings.escapeJavaScript(vacancy.description.schedule)}"/>
+            <td th:text="${#strings.escapeJavaScript(vacancy.description.phoneNum)}"/>
+            <td th:text="${#strings.escapeJavaScript(vacancy.requirements.age)}"/>
+            <td th:text="${#strings.escapeJavaScript(vacancy.requirements.experienceAge)}"/>
+            <td th:text="${#strings.escapeJavaScript(vacancy.requirements.educationDegree)}"/>
+            <td th:text="${#strings.escapeJavaScript(vacancy.requirements.otherReqs)}"/>
         </tr>
 
 </table>

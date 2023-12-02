@@ -24,9 +24,8 @@ class CompanyControllerImpl(private val generalService: GeneralService) {
 
     @PostMapping("/create")
     fun createVacancy(@PathVariable company: String, @ModelAttribute("vacancyAdd") vacancy: Vacancy, model: Model): ModelAndView {
-        val view = ModelAndView("redirect:http://localhost:8080/company/$company/vacancies/")
+        val view = ModelAndView("redirect:/company/$company/vacancies/")
         generalService.createVacancy(vacancy)
-
         return view
     }
 

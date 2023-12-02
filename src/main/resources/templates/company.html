@@ -26,15 +26,15 @@
 
     </tr>
     <tr th:each="vacancy : ${vacancies}">
-        <td th:text="${vacancy.id}"/>
-        <td th:text="${vacancy.title}"/>
-        <td th:text="${vacancy.description.company}"/>
-        <td th:text="${vacancy.description.schedule}"/>
-        <td th:text="${vacancy.description.phoneNum}"/>
-        <td th:text="${vacancy.requirements.age}"/>
-        <td th:text="${vacancy.requirements.experienceAge}"/>
-        <td th:text="${vacancy.requirements.educationDegree}"/>
-        <td th:text="${vacancy.requirements.otherReqs}"/>
+        <td th:text="${#strings.escapeXml(vacancy.id)}">Текст</td>
+        <td th:text="${#strings.escapeXml(vacancy.title)}">Текст</td>
+        <td th:text="${#strings.escapeXml(vacancy.description.company)}">Текст</td>
+        <td th:text="${#strings.escapeXml(vacancy.description.schedule)}">Текст</td>
+        <td th:text="${#strings.escapeXml(vacancy.description.phoneNum)}">Текст</td>
+        <td th:text="${#strings.escapeXml(vacancy.requirements.age)}">Текст</td>
+        <td th:text="${#strings.escapeXml(vacancy.requirements.experienceAge)}">Текст</td>
+        <td th:text="${#strings.escapeXml(vacancy.requirements.educationDegree)}">Текст</td>
+        <td th:text="${#strings.escapeXml(vacancy.requirements.otherReqs)}">Текст</td>
         <td id="buttons">
             <form id="edit" th:method="GET" th:action="@{|/company/${vacancy.description.company.toLowerCase()}/vacancies/edit|}">
                 <button type="submit" name="vacancyId" th:value="${vacancy.id}" class="btn btn-link">EDIT</button>

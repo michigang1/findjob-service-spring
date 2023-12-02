@@ -3,6 +3,7 @@ package com.springcourse.findjob.service
 import com.springcourse.findjob.models.Vacancy
 
 interface GeneralService{
+    fun <T: Any> validateData(dt: T)
     fun createVacancy(vacancy: Vacancy)
     fun upgradeVacancy(id: Int, vacancy: Vacancy)
     fun deleteVacancy(id: Int)
@@ -10,4 +11,5 @@ interface GeneralService{
     fun getCompanyVacancies(name: String): List<Vacancy>
     fun getVacancyById(id: Int): Vacancy
     fun getByKeyWordVacancy(keyWord: String): List<Vacancy>
+//    fun escapeVacancy(vacancy: Vacancy): Vacancy
 }
