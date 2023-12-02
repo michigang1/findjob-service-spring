@@ -1,8 +1,8 @@
 package com.springcourse.findjob.models
 
 data class VacancyRequirements(
-    var age: Int? = 0,
-    var experienceAge: Int? = 0,
-    var educationDegree: String? = "None",
-    var otherReqs: String? = "None",
+    var age: Int? = null,
+    var experienceAge: Int? = null,
+    var educationDegree: String? = null,
+    var otherReqs: String? = null,
 )

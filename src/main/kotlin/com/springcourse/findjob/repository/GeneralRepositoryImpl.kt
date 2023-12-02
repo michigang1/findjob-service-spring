@@ -31,7 +31,7 @@ class GeneralRepositoryImpl : GeneralRepository {
 
     override fun getByKeyWordVacancy(keyWord: String): List<Vacancy> {
         return vacancies.filter {
-            it.title.contains(keyWord, true)
+            it.title!!.contains(keyWord, true)
         }
     }
 }

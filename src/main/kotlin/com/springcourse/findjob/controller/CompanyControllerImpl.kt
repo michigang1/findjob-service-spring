@@ -17,7 +17,6 @@ class CompanyControllerImpl(private val generalService: GeneralService) {
         val vacancies = generalService.getCompanyVacancies(company)
         val mav = ModelAndView("company")
         mav.addObject("vacancies", vacancies)
-        println("$company listed all own vacancies")
         println("${vacancies.map { it.description }}")
         return mav
     }
@@ -50,7 +49,6 @@ class CompanyControllerImpl(private val generalService: GeneralService) {
     ): ModelAndView {
         val view = ModelAndView("redirect:http://localhost:8080/company/$company/vacancies/")
         generalService.upgradeVacancy(vacancyEdit.id, vacancyEdit)
-        println("$company changed vacancy with id=${vacancyEdit.id}")
         return view
     }
 
@@ -67,7 +65,6 @@ class CompanyControllerImpl(private val generalService: GeneralService) {
     fun deleteVacancy(@PathVariable("company") company: String, @RequestParam("vacancyId") id: Int): ModelAndView {
         val mav = ModelAndView("redirect:http://localhost:8080/company/$company/vacancies/")
         mav.addObject("vacancies", generalService.deleteVacancy(id))
-        println("$company deleted vacancy with id=$id")
         return mav
     }
 }

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Company Vacancies</title>
+    <link th:href="@{/styles/listStyle.css}" rel="stylesheet" />
+</head>
+<body>
+<form th:action="@{|/user/${username}/vacancies/search|}"  th:method="GET">
+    <div>
+        <label for="keywords">Enter Keywords:</label>
+        <input type="text" id="keywords" name="keywords">
+        <button type="submit" >Search</button>
+    </div>
+</form>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Company</th>
+        <th>Schedule</th>
+        <th>Phone Number</th>
+        <th>Age Requirement</th>
+        <th>Experience Age</th>
+        <th>Education Degree</th>
+        <th>Other Requirements</th>
+    </tr>
+    <tr th:each="vacancy : ${allVacancies}">
+        <td th:text="${#strings.escapeJavaScript(vacancy.id)}"/>
+        <td th:text="${#strings.escapeJavaScript(vacancy.title)}"/>
+        <td th:text="${#strings.escapeJavaScript(vacancy.description.company)}"/>
+        <td th:text="${#strings.escapeJavaScript(vacancy.description.schedule)}"/>
+        <td th:text="${#strings.escapeJavaScript(vacancy.description.phoneNum)}"/>
+        <td th:text="${#strings.escapeJavaScript(vacancy.requirements.age)}"/>
+        <td th:text="${#strings.escapeJavaScript(vacancy.requirements.experienceAge)}"/>
+        <td th:text="${#strings.escapeJavaScript(vacancy.requirements.educationDegree)}"/>
+        <td th:text="${#strings.escapeJavaScript(vacancy.requirements.otherReqs)}"/>
+    </tr>
+
+</table>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>HOME</title>
+    <link th:href="@{/styles/listStyle.css}" rel="stylesheet" />
+</head>
+<body>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Company</th>
+        <th>Schedule</th>
+        <th>Phone Number</th>
+        <th>Age Requirement</th>
+        <th>Experience Age</th>
+        <th>Education Degree</th>
+        <th>Other Requirements</th>
+    </tr>
+    <tr th:each="vacancy : ${allVacancies}">
+        <td th:text="${#strings.escapeJavaScript(vacancy.id)}"/>
+        <td th:text="${#strings.escapeJavaScript(vacancy.title)}"/>
+        <td th:text="${#strings.escapeJavaScript(vacancy.description.company)}"/>
+        <td th:text="${#strings.escapeJavaScript(vacancy.description.schedule)}"/>
+        <td th:text="${#strings.escapeJavaScript(vacancy.description.phoneNum)}"/>
+        <td th:text="${#strings.escapeJavaScript(vacancy.requirements.age)}"/>
+        <td th:text="${#strings.escapeJavaScript(vacancy.requirements.experienceAge)}"/>
+        <td th:text="${#strings.escapeJavaScript(vacancy.requirements.educationDegree)}"/>
+        <td th:text="${#strings.escapeJavaScript(vacancy.requirements.otherReqs)}"/>
+    </tr>
+
+</table>
+</body>
+</html>
