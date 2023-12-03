@@ -1,0 +1,405 @@
+openapi: 3.0.3
+info:
+  title: FindJob API
+  description: Service for finding job
+  version: 1.0.0
+servers:
+- url: http://localhost:8080
+tags:
+- name: companies
+  description: Operations available to admins of companies
+- name: workers
+  description: Operations available to workers
+paths:
+  /api/company/{company}/vacancies:
+    get:
+      tags:
+      - companies
+      summary: Get all vacancies
+      description: "This function requests all vacancies of {company}"
+      operationId: getCompanyVacancies
+      parameters:
+      - name: company
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Vacancy'
+        "404":
+          description: Not Found
+          content:
+            application/text:
+              schema:
+                type: string
+                example: Wrong path variable
+        "409":
+          description: Conflict
+          content:
+            application/text:
+              schema:
+                type: string
+                example: This should be application specific
+        "500":
+          description: Internal Server Error
+          content:
+            application/text:
+              schema:
+                type: string
+                example: Something went wrong
+  /api/company/{company}/vacancies/{id}:
+    get:
+      tags:
+      - companies
+      summary: Get vacancy by id
+      description: This function requests vacancy by id which passes in path
+      operationId: getVacancyById
+      parameters:
+      - name: company
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vacancy'
+        "404":
+          description: Not Found
+          content:
+            application/text:
+              schema:
+                type: string
+                example: Wrong path variable
+        "409":
+          description: Conflict
+          content:
+            application/text:
+              schema:
+                type: string
+                example: This should be application specific
+        "500":
+          description: Internal Server Error
+          content:
+            application/text:
+              schema:
+                type: string
+                example: Something went wrong
+  /api/company/{company}/vacancies/create:
+    post:
+      tags:
+      - companies
+      summary: Create vacancy
+      description: "This function creates vacancy of {company} . All fields are required\
+        \ apart from 'id'"
+      operationId: createVacancy
+      parameters:
+      - name: company
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Vacancy'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vacancy'
+        "404":
+          description: Not Found
+          content:
+            application/text:
+              schema:
+                type: string
+                example: Wrong path variable
+        "409":
+          description: Conflict
+          content:
+            application/text:
+              schema:
+                type: string
+                example: This should be application specific
+        "500":
+          description: Internal Server Error
+          content:
+            application/text:
+              schema:
+                type: string
+                example: Something went wrong
+  /api/company/{company}/vacancies/upgrade/{id}:
+    put:
+      tags:
+      - companies
+      summary: Upgrade vacancy by id
+      description: This function upgrades vacancy by id which passes in path. All
+        fields are required apart from 'id'
+      operationId: upgradeVacancy
+      parameters:
+      - name: company
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Vacancy'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vacancy'
+        "404":
+          description: Not Found
+          content:
+            application/text:
+              schema:
+                type: string
+                example: Wrong path variable
+        "409":
+          description: Conflict
+          content:
+            application/text:
+              schema:
+                type: string
+                example: This should be application specific
+        "500":
+          description: Internal Server Error
+          content:
+            application/text:
+              schema:
+                type: string
+                example: Something went wrong
+  /api/company/{company}/vacancies/delete/{id}:
+    delete:
+      tags:
+      - companies
+      summary: Delete vacancy
+      description: This function deletes vacancy by id which passes in path
+      operationId: deleteVacancy
+      parameters:
+      - name: company
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Vacancy'
+        "404":
+          description: Not Found
+          content:
+            application/text:
+              schema:
+                type: string
+                example: Wrong path variable
+        "409":
+          description: Conflict
+          content:
+            application/text:
+              schema:
+                type: string
+                example: This should be application specific
+        "500":
+          description: Internal Server Error
+          content:
+            application/text:
+              schema:
+                type: string
+                example: Something went wrong
+  /api/user/{username}/vacancies:
+    get:
+      tags:
+      - workers
+      summary: Get absolutely all vacancies
+      description: This function requests absolutely all vacancies
+      operationId: getAllVacancies
+      parameters:
+      - name: username
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Vacancy'
+        "404":
+          description: Not Found
+          content:
+            application/text:
+              schema:
+                type: string
+                example: Wrong path variable
+        "409":
+          description: Conflict
+          content:
+            application/text:
+              schema:
+                type: string
+                example: This should be application specific
+        "500":
+          description: Internal Server Error
+          content:
+            application/text:
+              schema:
+                type: string
+                example: Something went wrong
+  /api/user/{username}/vacancies/search:
+    get:
+      tags:
+      - workers
+      summary: Find vacancies by keywords
+      description: This function finds vacancies by keywords which passes in query
+        (not required)
+      operationId: getAllVacanciesByKeyword
+      parameters:
+      - name: username
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: keywords
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Vacancy'
+        "404":
+          description: Not Found
+          content:
+            application/text:
+              schema:
+                type: string
+                example: Wrong path variable
+        "409":
+          description: Conflict
+          content:
+            application/text:
+              schema:
+                type: string
+                example: This should be application specific
+        "500":
+          description: Internal Server Error
+          content:
+            application/text:
+              schema:
+                type: string
+                example: Something went wrong
+components:
+  schemas:
+    VacancyDescription:
+      type: object
+      properties:
+        company:
+          type: string
+        schedule:
+          type: string
+        phoneNum:
+          type: string
+    VacancyRequirements:
+      type: object
+      properties:
+        age:
+          type: integer
+          format: int32
+        experienceAge:
+          type: integer
+          format: int32
+        educationDegree:
+          type: string
+        otherReqs:
+          type: string
+    Vacancy:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        title:
+          type: string
+        description:
+          $ref: '#/components/schemas/VacancyDescription'
+        requirements:
+          $ref: '#/components/schemas/VacancyRequirements'
