@@ -1,6 +1,6 @@
 package com.springcourse.findjob.service
 
-import com.springcourse.findjob.expections.XssVulnerableStringExpection
+import com.springcourse.findjob.expections.XssVulnerableStringException
 import com.springcourse.findjob.models.Vacancy
 import com.springcourse.findjob.repository.GeneralRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -35,16 +35,16 @@ class GeneralServiceImpl(@Autowired private val generalRepository: GeneralReposi
     }
 
     override fun getByKeyWordVacancy(keyWord: String): List<Vacancy> {
-        if (!keyWord.contains(regexString)) throw XssVulnerableStringExpection()
+        if (!keyWord.contains(regexString)) throw XssVulnerableStringException()
         return generalRepository.getByKeyWordVacancy(keyWord)
     }
     fun Vacancy.checkForValidity() {
-        if (!this.title!!.contains(regexString)) throw XssVulnerableStringExpection()
-        if (this.description?.company?.contains(regexString) == false) throw XssVulnerableStringExpection()
-        if (this.description?.phoneNum?.contains(regexString) == false) throw XssVulnerableStringExpection()
-        if (this.description?.schedule?.contains(regexString) == false) throw XssVulnerableStringExpection()
-        if (this.requirements?.educationDegree?.contains(regexString) == false) throw XssVulnerableStringExpection()
-        if (this.requirements?.otherReqs?.contains(regexString) == false) throw XssVulnerableStringExpection()
+        if (!this.title!!.contains(regexString)) throw XssVulnerableStringException()
+        if (this.description?.company?.contains(regexString) == false) throw XssVulnerableStringException()
+        if (this.description?.phoneNum?.contains(regexString) == false) throw XssVulnerableStringException()
+        if (this.description?.schedule?.contains(regexString) == false) throw XssVulnerableStringException()
+        if (this.requirements?.educationDegree?.contains(regexString) == false) throw XssVulnerableStringException()
+        if (this.requirements?.otherReqs?.contains(regexString) == false) throw XssVulnerableStringException()
     }
 
     companion object {

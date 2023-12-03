@@ -4,12 +4,13 @@ import com.springcourse.findjob.models.Vacancy
 import com.springcourse.findjob.models.VacancyDescription
 import com.springcourse.findjob.models.VacancyRequirements
 import com.springcourse.findjob.service.GeneralService
+import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.ModelAndView
 
 @RequestMapping("/company/{company}/vacancies")
-@RestController
+@Controller
 class CompanyControllerImpl(private val generalService: GeneralService) {
 
     @GetMapping("/")
