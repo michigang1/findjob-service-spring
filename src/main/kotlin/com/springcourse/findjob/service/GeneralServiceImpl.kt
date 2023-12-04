@@ -38,6 +38,11 @@ class GeneralServiceImpl(@Autowired private val generalRepository: GeneralReposi
         if (!keyWord.contains(regexString)) throw XssVulnerableStringException()
         return generalRepository.getByKeyWordVacancy(keyWord)
     }
+
+    override fun getByFilter(vacancyFilter: Vacancy): List<Vacancy> {
+        return generalRepository.getByFilter(vacancyFilter)
+    }
+
     fun Vacancy.checkForValidity() {
         if (!this.title!!.contains(regexString)) throw XssVulnerableStringException()
         if (this.description?.company?.contains(regexString) == false) throw XssVulnerableStringException()

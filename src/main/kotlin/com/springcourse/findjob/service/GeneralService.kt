@@ -10,4 +10,5 @@ interface GeneralService{
     fun getCompanyVacancies(name: String): List<Vacancy>
     fun getVacancyById(id: Int): Vacancy
     fun getByKeyWordVacancy(keyWord: String): List<Vacancy>
+    fun getByFilter(vacancyFilter: Vacancy): List<Vacancy>
 }

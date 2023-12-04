@@ -18,7 +18,7 @@ class CompanyControllerImpl(private val generalService: GeneralService) {
         val vacancies = generalService.getCompanyVacancies(company)
         val mav = ModelAndView("company")
         mav.addObject("vacancies", vacancies)
-        println("${vacancies.map { it.description }}")
+        //println("${vacancies.map { it.description }}")
         return mav
     }
 

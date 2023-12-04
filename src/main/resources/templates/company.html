@@ -19,7 +19,7 @@
         <th>Education Degree</th>
         <th>Other Requirements</th>
         <td>
-            <form id="create" th:method="GET" th:action="@{|/company/${vacancies.get(0).description.company.toLowerCase()}/vacancies/add|}">
+            <form id="create" th:method="GET" th:action="@{|/company/${company}/vacancies/add|}">
                 <button type="submit" class="btn btn-link">       ADD NEW VACANCY       </button>
             </form>
         </td>
@@ -28,46 +28,46 @@
     <tr th:each="vacancy : ${vacancies}">
         <td th:text="${#strings.escapeXml(vacancy.id)}"></td>
         <td>
-            <span th:if="${vacancy.title == '' or vacancy.title == null}">To be added</span>
-            <span th:text="${vacancy.title}" th:unless="${vacancy.title == '' or vacancy.title == null}"></span>
+            <span th:if="${vacancy.title == ''}">To be added</span>
+            <span th:text="${vacancy.title}" th:unless="${vacancy.title == ''}"></span>
         </td>
 
         <td>
-            <span th:if="${vacancy.description.company == '' or vacancy.description.company == null}">To be added</span>
-            <span th:text="${vacancy.description.company}" th:unless="${vacancy.description.company == '' or vacancy.description.company == null}"></span>
+            <span th:if="${vacancy.description.company == ''}">To be added</span>
+            <span th:text="${vacancy.description.company}" th:unless="${vacancy.description.company == ''}"></span>
         </td>
         <td>
-            <span th:if="${vacancy.description.schedule == '' or vacancy.description.schedule == null}">To be added</span>
-            <span th:text="${vacancy.description.schedule}" th:unless="${vacancy.description.schedule == '' or vacancy.description.schedule == null}"></span>
+            <span th:if="${vacancy.description.schedule == ''}">To be added</span>
+            <span th:text="${vacancy.description.schedule}" th:unless="${vacancy.description.schedule == ''}"></span>
         </td>
         <td>
-            <span th:if="${vacancy.description.phoneNum == '' or vacancy.description.phoneNum == null}">To be added</span>
-            <span th:text="${vacancy.description.phoneNum}" th:unless="${vacancy.description.phoneNum == '' or vacancy.description.phoneNum == null}"></span>
+            <span th:if="${vacancy.description.phoneNum == ''}">To be added</span>
+            <span th:text="${vacancy.description.phoneNum}" th:unless="${vacancy.description.phoneNum == ''}"></span>
         </td>
         <td>
-            <span th:if="${vacancy.requirements.age == '' or vacancy.requirements.age == null}">To be added</span>
-            <span th:text="${vacancy.requirements.age}" th:unless="${vacancy.requirements.age == '' or vacancy.requirements.age == null}"></span>
+            <span th:if="${vacancy.requirements.age == ''}">To be added</span>
+            <span th:text="${vacancy.requirements.age}" th:unless="${vacancy.requirements.age == ''}"></span>
         </td>
         <td>
-            <span th:if="${vacancy.requirements.experienceAge == '' or vacancy.requirements.experienceAge == null}">To be added</span>
-            <span th:text="${vacancy.requirements.experienceAge}" th:unless="${vacancy.requirements.experienceAge == '' or vacancy.requirements.experienceAge == null}"></span>
+            <span th:if="${vacancy.requirements.experienceAge == ''}">To be added</span>
+            <span th:text="${vacancy.requirements.experienceAge}" th:unless="${vacancy.requirements.experienceAge == ''}"></span>
         </td>
         <td>
-            <span th:if="${vacancy.requirements.educationDegree == '' or vacancy.requirements.educationDegree == null}">To be added</span>
-            <span th:text="${vacancy.requirements.educationDegree}" th:unless="${vacancy.requirements.educationDegree == '' or vacancy.requirements.educationDegree == null}"></span>
+            <span th:if="${vacancy.requirements.educationDegree == ''}">To be added</span>
+            <span th:text="${vacancy.requirements.educationDegree}" th:unless="${vacancy.requirements.educationDegree == ''}"></span>
         </td>
         <td>
-            <span th:if="${vacancy.requirements.otherReqs == '' or vacancy.requirements.otherReqs== null}">To be added</span>
-            <span th:text="${vacancy.requirements.otherReqs}" th:unless="${vacancy.requirements.otherReqs == '' or vacancy.requirements.otherReqs == null}"></span>
+            <span th:if="${vacancy.requirements.otherReqs == ''}">To be added</span>
+            <span th:text="${vacancy.requirements.otherReqs}" th:unless="${vacancy.requirements.otherReqs == ''}"></span>
         </td>
 
         <td id="buttons">
-            <form id="edit" th:method="GET" th:action="@{|/company/${vacancy.description.company.toLowerCase()}/vacancies/edit|}">
+            <form id="edit" th:method="GET" th:action="@{|/company/${vacancy.description.company}/vacancies/edit|}">
                 <button type="submit" name="vacancyId" th:value="${vacancy.id}" class="btn btn-link">EDIT</button>
             </form>
 
 
-            <form id="delete" th:method="DELETE" th:action="@{|/company/${vacancy.description.company.toLowerCase()}/vacancies/delete|}">
+            <form id="delete" th:method="DELETE" th:action="@{|/company/${vacancy.description.company}/vacancies/delete|}">
                 <button type="submit" name="vacancyId" th:value="${vacancy.id}" class="btn btn-link">DELETE</button>
             </form>
         </td>

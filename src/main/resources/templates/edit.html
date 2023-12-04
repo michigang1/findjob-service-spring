@@ -33,15 +33,15 @@
             </tr>
             <tr>
                 <td>Age</td>
-                <td><input type="number" th:field="*{requirements.age}" class="form-control col-4 mb-4" placeholder="Enter age" /></td>
+                <td><input type="number" min="0" max="100" th:field="*{requirements.age}" class="form-control col-4 mb-4" placeholder="Enter age" /></td>
             </tr>
             <tr>
                 <td>Experience age</td>
-                <td><input type="number" th:field="*{requirements.experienceAge}" class="form-control col-4 mb-4" placeholder="Enter experience age" /></td>
+                <td><input type="number" min="0" max="100" th:field="*{requirements.experienceAge}" class="form-control col-4 mb-4" placeholder="Enter experience age" /></td>
             </tr>
             <tr>
                 <td>Education degree</td>
-                <td><textarea type="text" th:field="*{requirements.educationDegree}" class="form-control col-4 mb-4" placeholder="Enter age" /></td>
+                <td><input type="text" th:field="*{requirements.educationDegree}" class="form-control col-4 mb-4" placeholder="Enter education degree" /></td>
             </tr>
             <tr>
                 <td>Other requirements</td>

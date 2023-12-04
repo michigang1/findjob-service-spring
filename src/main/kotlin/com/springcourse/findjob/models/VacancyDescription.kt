@@ -1,7 +1,7 @@
 package com.springcourse.findjob.models
 
 data class VacancyDescription(
-    var company: String? = null,
-    var schedule: String? = null,
-    var phoneNum: String? = null,
+    var company: String? = "",
+    var schedule: String? = "",
+    var phoneNum: String? = "",
 )

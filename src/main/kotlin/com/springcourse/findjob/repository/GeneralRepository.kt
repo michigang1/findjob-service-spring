@@ -9,4 +9,5 @@ interface GeneralRepository {
     fun deleteVacancy(id: Int)
     fun getAllVacancies(): List<Vacancy>
     fun getByKeyWordVacancy(keyWord: String): List<Vacancy>
+    fun getByFilter(vacancyFilter: Vacancy): List<Vacancy>
 }
