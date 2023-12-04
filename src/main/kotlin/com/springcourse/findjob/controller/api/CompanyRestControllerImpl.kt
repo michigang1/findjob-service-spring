@@ -33,7 +33,7 @@ class CompanyRestControllerImpl(@Autowired private val service: GeneralService) 
     }
 
     @DeleteMapping("/delete/{id}")
-    override fun deleteVacancy(@PathVariable("id") id: Int, @RequestParam("company") company: String): ResponseEntity<List<Vacancy>> {
+    override fun deleteVacancy(@PathVariable("id") id: Int, @PathVariable("company") company: String): ResponseEntity<List<Vacancy>> {
         service.deleteVacancy(id)
         return ResponseEntity.ok(service.getCompanyVacancies(company))
     }

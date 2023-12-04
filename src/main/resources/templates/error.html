@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+    <link th:href="@{/styles/listStyle.css}" rel="stylesheet" />
+
+</head>
+<body>
+<table>
+    <tr>
+        <th>Exception</th>
+        <th>URL</th>
+    </tr>
+    <tr>
+        <td th:text="${exception}"></td>
+        <td th:text="${url}"></td>
+    </tr>
+</table>
+</body>
+</html>
