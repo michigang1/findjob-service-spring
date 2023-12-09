@@ -1,4 +1,4 @@
-package com.springcourse.findjob.controller
+package com.springcourse.findjob.controller.view
 
 import com.springcourse.findjob.models.Vacancy
 import com.springcourse.findjob.models.VacancyDescription

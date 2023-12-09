@@ -1,6 +1,7 @@
 package com.springcourse.findjob.controller.error
 
 import com.springcourse.findjob.expections.WrongPathVariableException
+import com.springcourse.findjob.expections.WrongRequestParamException
 import com.springcourse.findjob.expections.XssVulnerableStringException
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.HttpHeaders
@@ -18,56 +19,41 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @Controller
 @ControllerAdvice
 class RestResponseEntityExceptionHandler : ResponseEntityExceptionHandler() {
-    @ExceptionHandler(value = [IllegalArgumentException::class, IllegalStateException::class])
-    fun handleIllegalArgumentException(ex: RuntimeException, request: WebRequest): ResponseEntity<Any>? {
+
+    private fun prepareResponse(ex: RuntimeException, request: WebRequest, bodyOfResponse: String, status: HttpStatus): ResponseEntity<Any>? {
         logger.error("Request: ${request.contextPath} raised " + ex)
-        val bodyOfResponse = "This should be application specific"
         return handleExceptionInternal(
             ex,
             bodyOfResponse,
             HttpHeaders(),
-            HttpStatus.CONFLICT,
+            status,
             request,
         )
+    }
+
+    @ExceptionHandler(value = [IllegalArgumentException::class, IllegalStateException::class])
+    fun handleIllegalArgumentException(ex: RuntimeException, request: WebRequest): ResponseEntity<Any>? {
+        return prepareResponse(ex, request, "This should be application specific", HttpStatus.CONFLICT)
     }
 
     @ExceptionHandler(value = [WrongPathVariableException::class])
     fun handleWrongPathVariableException(ex: RuntimeException, request: WebRequest): ResponseEntity<Any>? {
-        logger.error("Request: ${request.contextPath} raised " + ex)
-        val bodyOfResponse = "Wrong path variable"
-        return handleExceptionInternal(
-            ex,
-            bodyOfResponse,
-            HttpHeaders(),
-            HttpStatus.NOT_FOUND,
-            request,
-        )
+        return prepareResponse(ex, request, "Wrong path variable", HttpStatus.NOT_FOUND)
+    }
+
+    @ExceptionHandler(value = [WrongRequestParamException::class])
+    fun handleWrongRequestParamException(ex: RuntimeException, request: WebRequest): ResponseEntity<Any>? {
+        return prepareResponse(ex, request, "Wrong request parameter", HttpStatus.BAD_REQUEST)
     }
 
     @ExceptionHandler(value = [RuntimeException::class])
     fun handleOtherException(ex: RuntimeException, request: WebRequest): ResponseEntity<Any>? {
-        logger.error("Request: ${request.contextPath} raised " + ex)
-        val bodyOfResponse = "Something went wrong"
-        return handleExceptionInternal(
-            ex,
-            bodyOfResponse,
-            HttpHeaders(),
-            HttpStatus.INTERNAL_SERVER_ERROR,
-            request,
-        )
+        return prepareResponse(ex, request, "Something went wrong", HttpStatus.INTERNAL_SERVER_ERROR)
     }
 
     @ExceptionHandler(value = [XssVulnerableStringException::class])
     fun handleXssVulnerableStringException(ex: RuntimeException, request: WebRequest): ResponseEntity<Any>? {
-        logger.error("Request: ${request.contextPath} raised " + ex)
-        val bodyOfResponse = "XSS Vulnerable String"
-        return handleExceptionInternal(
-            ex,
-            bodyOfResponse,
-            HttpHeaders(),
-            HttpStatus.BAD_REQUEST,
-            request,
-        )
+        return prepareResponse(ex, request, "XSS Vulnerable String", HttpStatus.BAD_REQUEST)
     }
 
     @ExceptionHandler(Exception::class)

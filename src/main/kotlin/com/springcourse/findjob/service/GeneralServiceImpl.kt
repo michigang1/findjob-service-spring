@@ -1,6 +1,7 @@
 package com.springcourse.findjob.service
 
 import com.springcourse.findjob.expections.XssVulnerableStringException
+import com.springcourse.findjob.models.User
 import com.springcourse.findjob.models.Vacancy
 import com.springcourse.findjob.repository.GeneralRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -43,6 +44,10 @@ class GeneralServiceImpl(@Autowired private val generalRepository: GeneralReposi
         return generalRepository.getByFilter(vacancyFilter)
     }
 
+    override fun getUserByName(name: String): User {
+        return generalRepository.getUserByName(name)
+    }
+
     fun Vacancy.checkForValidity() {
         if (!this.title!!.contains(regexString)) throw XssVulnerableStringException()
         if (this.description?.company?.contains(regexString) == false) throw XssVulnerableStringException()
@@ -51,6 +56,8 @@ class GeneralServiceImpl(@Autowired private val generalRepository: GeneralReposi
         if (this.requirements?.educationDegree?.contains(regexString) == false) throw XssVulnerableStringException()
         if (this.requirements?.otherReqs?.contains(regexString) == false) throw XssVulnerableStringException()
     }
+
+
 
     companion object {
         val regexString = Regex("^[a-zA-Z0-9 .,?!@#\$%^&*()_+-=;:'\"|\\\\/]*\$")

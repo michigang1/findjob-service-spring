@@ -1,4 +1,4 @@
-package com.springcourse.findjob.controller
+package com.springcourse.findjob.controller.view
 
 import com.springcourse.findjob.models.Vacancy
 import com.springcourse.findjob.models.VacancyDescription
@@ -15,11 +15,10 @@ class CompanyControllerImpl(private val generalService: GeneralService) {
 
     @GetMapping("/")
     fun getCompanyVacancies(@PathVariable("company") company: String): ModelAndView {
-        val vacancies = generalService.getCompanyVacancies(company)
-        val mav = ModelAndView("company")
-        mav.addObject("vacancies", vacancies)
-        //println("${vacancies.map { it.description }}")
-        return mav
+            val vacancies = generalService.getCompanyVacancies(company)
+            val mav = ModelAndView("company")
+            mav.addObject("vacancies", vacancies)
+            return mav
     }
 
     @PostMapping("/create")

@@ -1,5 +1,6 @@
 package com.springcourse.findjob.service
 
+import com.springcourse.findjob.models.User
 import com.springcourse.findjob.models.Vacancy
 
 interface GeneralService{
@@ -11,4 +12,6 @@ interface GeneralService{
     fun getVacancyById(id: Int): Vacancy
     fun getByKeyWordVacancy(keyWord: String): List<Vacancy>
     fun getByFilter(vacancyFilter: Vacancy): List<Vacancy>
+
+    fun getUserByName(name: String): User
 }
