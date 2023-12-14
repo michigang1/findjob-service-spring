@@ -13,7 +13,7 @@ tags:
     description: Operations available to workers
 
 paths:
-  /api/company/{company}/vacancies:
+  /api/company/{company}/vacancies/:
     get:
       tags:
         - companies
