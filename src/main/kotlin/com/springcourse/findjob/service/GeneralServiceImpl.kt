@@ -6,7 +6,6 @@ import com.springcourse.findjob.models.Vacancy
 import com.springcourse.findjob.repository.GeneralRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import org.springframework.transaction.TransactionDefinition
 import org.springframework.transaction.annotation.Isolation
 import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
@@ -20,9 +19,9 @@ class GeneralServiceImpl(@Autowired private val generalRepository: GeneralReposi
         return generalRepository.createVacancy(vacancy)
     }
 
-    override fun upgradeVacancy(id: Int, vacancy: Vacancy) {
+    override fun upgradeVacancy(id: Int, vacancy: Vacancy): Int {
         vacancy.checkForValidity()
-        generalRepository.upgradeVacancy(id, vacancy)
+        return generalRepository.upgradeVacancy(id, vacancy)
     }
 
     override fun deleteVacancy(id: Int) = generalRepository.deleteVacancy(id)

@@ -26,14 +26,14 @@ class CompanyRestControllerImpl(@Autowired private val service: GeneralService) 
     }
 
     @PutMapping("/upgrade/{id}")
-    override fun upgradeVacancy(@PathVariable("id") id: Int, @RequestBody @Validated vacancy: Vacancy): ResponseEntity<Vacancy> {
-        service.upgradeVacancy(id, vacancy)
-        return ResponseEntity.ok(service.getVacancyById(id))
+    override fun upgradeVacancy(@PathVariable("id") id: Int, @RequestBody @Validated vacancy: Vacancy): ResponseEntity<Any> {
+        val rows = service.upgradeVacancy(id, vacancy)
+        return if (rows > 0) ResponseEntity.ok(service.getVacancyById(id)) else ResponseEntity.notFound().build()
     }
 
     @DeleteMapping("/delete/{id}")
-    override fun deleteVacancy(@PathVariable("id") id: Int, @PathVariable("company") company: String): ResponseEntity<List<Vacancy>> {
-        service.deleteVacancy(id)
-        return ResponseEntity.ok(service.getCompanyVacancies(company))
+    override fun deleteVacancy(@PathVariable("id") id: Int, @PathVariable("company") company: String): ResponseEntity<Any> {
+        val rows = service.deleteVacancy(id)
+        return if (rows > 0) ResponseEntity.ok(service.getCompanyVacancies(company)) else ResponseEntity.notFound().build()
     }
 }

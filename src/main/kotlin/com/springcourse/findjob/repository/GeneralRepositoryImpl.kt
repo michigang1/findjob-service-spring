@@ -6,7 +6,6 @@ import com.springcourse.findjob.models.VacancyDescription
 import com.springcourse.findjob.models.VacancyRequirements
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.jdbc.core.JdbcTemplate
-import org.springframework.jdbc.core.query
 import org.springframework.stereotype.Repository
 
 @Repository
@@ -32,8 +31,8 @@ class GeneralRepositoryImpl(@Autowired private val jdbcTemplate: JdbcTemplate) :
         return id
     }
 
-    override fun upgradeVacancy(id: Int, vacancy: Vacancy) {
-        jdbcTemplate.update(
+    override fun upgradeVacancy(id: Int, vacancy: Vacancy): Int {
+        return jdbcTemplate.update(
             "UPDATE vacancy SET title = ?, company = ?, schedule = ?, phoneNum = ?, age = ?, experienceAge = ?, educationDegree = ?, otherReqs = ? WHERE id = ?",
             vacancy.title,
             vacancy.description?.company,
@@ -47,8 +46,8 @@ class GeneralRepositoryImpl(@Autowired private val jdbcTemplate: JdbcTemplate) :
         )
     }
 
-    override fun deleteVacancy(id: Int) {
-        jdbcTemplate.update(
+    override fun deleteVacancy(id: Int): Int {
+        return jdbcTemplate.update(
             "DELETE FROM vacancy WHERE id = ?",
             id,
         )
