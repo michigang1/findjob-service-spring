@@ -21,9 +21,8 @@ class CompanyRestControllerImpl(@Autowired private val service: GeneralService) 
         @RequestBody @Validated
         vacancy: Vacancy,
         @PathVariable("company") company: String,
-    ): ResponseEntity<Vacancy> {
-        service.createVacancy(vacancy)
-        return ResponseEntity.ok(vacancy)
+    ): ResponseEntity<Int> {
+        return ResponseEntity.ok(service.createVacancy(vacancy))
     }
 
     @PutMapping("/upgrade/{id}")

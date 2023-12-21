@@ -8,7 +8,7 @@ interface CompanyRestController {
 
     fun getVacancyById(id: Int): ResponseEntity<Vacancy>
 
-    fun createVacancy(vacancy: Vacancy, company: String): ResponseEntity<Vacancy>
+    fun createVacancy(vacancy: Vacancy, company: String): ResponseEntity<Int>
 
     fun upgradeVacancy(id: Int, vacancy: Vacancy): ResponseEntity<Vacancy>
 

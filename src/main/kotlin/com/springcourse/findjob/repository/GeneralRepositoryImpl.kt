@@ -6,13 +6,14 @@ import com.springcourse.findjob.models.VacancyDescription
 import com.springcourse.findjob.models.VacancyRequirements
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.jdbc.core.JdbcTemplate
+import org.springframework.jdbc.core.query
 import org.springframework.stereotype.Repository
 
 @Repository
 class GeneralRepositoryImpl(@Autowired private val jdbcTemplate: JdbcTemplate) : GeneralRepository {
     @Autowired
     var vacancies = mutableListOf<Vacancy>()
-    override fun createVacancy(vacancy: Vacancy) {
+    override fun createVacancy(vacancy: Vacancy): Int {
         jdbcTemplate.update(
             "INSERT INTO vacancy (title, company, schedule, phoneNum, age, experienceAge, educationDegree, otherReqs) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
             vacancy.title,
@@ -24,6 +25,11 @@ class GeneralRepositoryImpl(@Autowired private val jdbcTemplate: JdbcTemplate) :
             vacancy.requirements?.educationDegree,
             vacancy.requirements?.otherReqs,
         )
+        val id = jdbcTemplate.query<Int>("SELECT id FROM vacancy WHERE title = ?", arrayOf(vacancy.title)) { rs, _ ->
+            rs.getInt("id")
+        }.last()
+
+        return id
     }
 
     override fun upgradeVacancy(id: Int, vacancy: Vacancy) {
@@ -147,4 +153,28 @@ val regexTitle = makeRegex(vacancyFilter.title ?: "")
             )
         }.first()
     }
+
+    override fun getVacanciesByAge(age: Int): List<Vacancy> {
+        return jdbcTemplate.query(
+            "SELECT * FROM vacancy WHERE age = ?",
+            arrayOf(age),
+        ) { rs, _ ->
+            Vacancy(
+                rs.getInt("id"),
+                rs.getString("title"),
+                VacancyDescription(
+                    rs.getString("company"),
+                    rs.getString("schedule"),
+                    rs.getString("phoneNum"),
+                ),
+                VacancyRequirements(
+                    rs.getInt("age"),
+                    rs.getInt("experienceAge"),
+                    rs.getString("educationDegree"),
+                    rs.getString("otherReqs"),
+                ),
+            )
+        }
+    }
+
 }

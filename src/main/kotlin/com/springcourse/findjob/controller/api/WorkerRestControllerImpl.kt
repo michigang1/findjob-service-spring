@@ -16,4 +16,7 @@ class WorkerRestControllerImpl(@Autowired private val service: GeneralService) :
 
     @GetMapping("/search")
     override fun getAllVacanciesByKeyword(@RequestParam("keywords", required = false) keyword: String) = ResponseEntity.ok(service.getByKeyWordVacancy(keyword))
+
+    @GetMapping("/searchByAge")
+    override fun getAllVacanciesByAge(@RequestParam("age", required = false) age: Int) = ResponseEntity.ok(service.getVacanciesByAge(age))
 }

@@ -341,6 +341,52 @@ paths:
               schema:
                 type: "string"
                 example: "Something went wrong"
+  /api/user/{username}/vacancies/searchByAge:
+    get:
+      tags:
+        - workers
+      summary: "Find vacancies by age"
+      description: "This function finds vacancies by age which passes in query (not required)"
+      operationId: "getAllVacanciesByAge"
+      parameters:
+        - name: "username"
+          in: "path"
+          required: false
+        - name: "age"
+          in: "query"
+          required: false
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            'application/json':
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Vacancy"
+        "404":
+          description: "Not Found"
+          content:
+            'application/text':
+              schema:
+                type: "string"
+                example: "Wrong path variable"
+        "409":
+          description: "Conflict"
+          content:
+            'application/text':
+              schema:
+                type: "string"
+                example: "This should be application specific"
+        "500":
+          description: "Internal Server Error"
+          content:
+            'application/text':
+              schema:
+                type: "string"
+                example: "Something went wrong"
 
 components:
   schemas:
