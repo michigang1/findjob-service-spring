@@ -15,10 +15,10 @@ class CompanyControllerImpl(private val generalService: GeneralService) {
 
     @GetMapping("/")
     fun getCompanyVacancies(@PathVariable("company") company: String): ModelAndView {
-            val vacancies = generalService.getCompanyVacancies(company)
-            val mav = ModelAndView("company")
-            mav.addObject("vacancies", vacancies)
-            return mav
+        val vacancies = generalService.getCompanyVacancies(company)
+        val mav = ModelAndView("company")
+        mav.addObject("vacancies", vacancies)
+        return mav
     }
 
     @PostMapping("/create")

@@ -33,7 +33,9 @@ class CompanyRestControllerImpl(@Autowired private val service: GeneralService) 
         vacancy: Vacancy,
         @PathVariable("company") company: String,
     ): ResponseEntity<Int> {
-        return ResponseEntity.ok(service.createVacancy(vacancy))
+        if (vacancy.description == null || vacancy.requirements == null || vacancy.title == null)
+            return ResponseEntity.badRequest().build()
+        else return ResponseEntity.ok(service.createVacancy(vacancy))
     }
 
     @PutMapping("/upgrade/{id}")
