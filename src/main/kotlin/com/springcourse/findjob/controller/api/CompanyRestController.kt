@@ -4,9 +4,9 @@ import com.springcourse.findjob.models.Vacancy
 import org.springframework.http.ResponseEntity
 
 interface CompanyRestController {
-    fun getCompanyVacancies(company: String): ResponseEntity<List<Vacancy>>
+    fun getCompanyVacancies(company: String): ResponseEntity<Any>
 
-    fun getVacancyById(id: Int): ResponseEntity<Vacancy>
+    fun getVacancyById(id: Int): ResponseEntity<Any>
 
     fun createVacancy(vacancy: Vacancy, company: String): ResponseEntity<Int>
 

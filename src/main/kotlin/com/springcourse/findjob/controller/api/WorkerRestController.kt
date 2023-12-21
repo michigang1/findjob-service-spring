@@ -8,5 +8,5 @@ interface WorkerRestController {
 
     fun getAllVacanciesByKeyword(keyword: String): ResponseEntity<List<Vacancy>>
 
-    fun getAllVacanciesByAge(age: Int): ResponseEntity<List<Vacancy>>
+    fun getAllVacanciesByAge(age: Int): ResponseEntity<Any>
 }

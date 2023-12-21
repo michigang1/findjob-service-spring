@@ -11,10 +11,21 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/api/company/{company}/vacancies")
 class CompanyRestControllerImpl(@Autowired private val service: GeneralService) : CompanyRestController {
     @GetMapping("/")
-    override fun getCompanyVacancies(@PathVariable("company") company: String): ResponseEntity<List<Vacancy>> = ResponseEntity.ok(service.getCompanyVacancies(company))
+    override fun getCompanyVacancies(@PathVariable("company") company: String): ResponseEntity<Any> {
+        val found = service.getCompanyVacancies(company)
+        return if (found.any()) ResponseEntity.ok(found) else ResponseEntity.notFound().build()
+    }
 
     @GetMapping("/{id}")
-    override fun getVacancyById(@PathVariable("id") id: Int): ResponseEntity<Vacancy> = ResponseEntity.ok(service.getVacancyById(id))
+    override fun getVacancyById(@PathVariable("id") id: Int): ResponseEntity<Any> {
+        val found: Any;
+        try {
+            found = service.getVacancyById(id)
+            return ResponseEntity.ok(found)
+        } catch (e: Exception) {
+            return ResponseEntity.notFound().build()
+        }
+    }
 
     @PostMapping("/create")
     override fun createVacancy(

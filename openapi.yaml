@@ -366,6 +366,13 @@ paths:
                 type: "array"
                 items:
                   $ref: "#/components/schemas/Vacancy"
+        "400":
+          description: "Bad request"
+          content:
+            'application/text':
+              schema:
+                type: "string"
+                example: "Wrong search param"
         "404":
           description: "Not Found"
           content:
