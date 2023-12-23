@@ -33,20 +33,16 @@ class CompanyRestControllerImpl(@Autowired private val service: GeneralService) 
         vacancy: Vacancy,
         @PathVariable("company") company: String,
     ): ResponseEntity<Int> {
-        if (vacancy.description == null || vacancy.requirements == null || vacancy.title == null)
-            return ResponseEntity.badRequest().build()
-        else return ResponseEntity.ok(service.createVacancy(vacancy))
+       return ResponseEntity.ok(service.createVacancy(vacancy))
     }
 
     @PutMapping("/upgrade/{id}")
-    override fun upgradeVacancy(@PathVariable("id") id: Int, @RequestBody @Validated vacancy: Vacancy): ResponseEntity<Any> {
-        val rows = service.upgradeVacancy(id, vacancy)
-        return if (rows > 0) ResponseEntity.ok(service.getVacancyById(id)) else ResponseEntity.notFound().build()
+    override fun upgradeVacancy(@PathVariable("id") id: Int, @RequestBody @Validated vacancy: Vacancy) {
+        ResponseEntity.ok(service.upgradeVacancy(id, vacancy))
     }
 
     @DeleteMapping("/delete/{id}")
-    override fun deleteVacancy(@PathVariable("id") id: Int, @PathVariable("company") company: String): ResponseEntity<Any> {
-        val rows = service.deleteVacancy(id)
-        return if (rows > 0) ResponseEntity.ok(service.getCompanyVacancies(company)) else ResponseEntity.notFound().build()
+    override fun deleteVacancy(@PathVariable("id") id: Int, @PathVariable("company") company: String) {
+        ResponseEntity.ok(service.deleteVacancy(id))
     }
 }

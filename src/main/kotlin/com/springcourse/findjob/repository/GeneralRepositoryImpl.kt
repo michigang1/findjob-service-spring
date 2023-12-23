@@ -32,9 +32,9 @@ class GeneralRepositoryImpl(@Autowired private val jdbcTemplate: JdbcTemplate) :
         return id
     }
 
-    override fun upgradeVacancy(id: Int, vacancy: Vacancy): Int {
+    override fun upgradeVacancy(id: Int, vacancy: Vacancy) {
         if (!existsById(id)) throw WrongPathVariableException()
-        return jdbcTemplate.update(
+        jdbcTemplate.update(
             "UPDATE vacancy SET title = ?, company = ?, schedule = ?, phoneNum = ?, age = ?, experienceAge = ?, educationDegree = ?, otherReqs = ? WHERE id = ?",
             vacancy.title,
             vacancy.description?.company,
@@ -48,9 +48,9 @@ class GeneralRepositoryImpl(@Autowired private val jdbcTemplate: JdbcTemplate) :
         )
     }
 
-    override fun deleteVacancy(id: Int): Int {
+    override fun deleteVacancy(id: Int) {
         if (!existsById(id)) throw WrongPathVariableException()
-        return jdbcTemplate.update(
+        jdbcTemplate.update(
             "DELETE FROM vacancy WHERE id = ?",
             id,
         )

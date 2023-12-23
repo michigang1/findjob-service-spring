@@ -6,8 +6,8 @@ import com.springcourse.findjob.models.Vacancy
 interface GeneralRepository {
 
     fun createVacancy(vacancy: Vacancy): Int
-    fun upgradeVacancy(id: Int, vacancy: Vacancy): Int
-    fun deleteVacancy(id: Int) : Int
+    fun upgradeVacancy(id: Int, vacancy: Vacancy)
+    fun deleteVacancy(id: Int)
     fun getAllVacancies(): List<Vacancy>
     fun getByKeyWordVacancy(keyWord: String): List<Vacancy>
     fun getByFilter(vacancyFilter: Vacancy): List<Vacancy>

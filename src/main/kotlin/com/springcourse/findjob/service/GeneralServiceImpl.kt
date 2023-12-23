@@ -1,5 +1,6 @@
 package com.springcourse.findjob.service
 
+import com.springcourse.findjob.expections.NullableStringException
 import com.springcourse.findjob.expections.XssVulnerableStringException
 import com.springcourse.findjob.models.User
 import com.springcourse.findjob.models.Vacancy
@@ -19,9 +20,9 @@ class GeneralServiceImpl(@Autowired private val generalRepository: GeneralReposi
         return generalRepository.createVacancy(vacancy)
     }
 
-    override fun upgradeVacancy(id: Int, vacancy: Vacancy): Int {
+    override fun upgradeVacancy(id: Int, vacancy: Vacancy) {
         vacancy.checkForValidity()
-        return generalRepository.upgradeVacancy(id, vacancy)
+        generalRepository.upgradeVacancy(id, vacancy)
     }
 
     override fun deleteVacancy(id: Int) = generalRepository.deleteVacancy(id)
@@ -54,12 +55,13 @@ class GeneralServiceImpl(@Autowired private val generalRepository: GeneralReposi
     }
 
     fun Vacancy.checkForValidity() {
-        if (!this.title!!.contains(regexString)) throw XssVulnerableStringException()
-        if (this.description?.company?.contains(regexString) == false) throw XssVulnerableStringException()
-        if (this.description?.phoneNum?.contains(regexString) == false) throw XssVulnerableStringException()
-        if (this.description?.schedule?.contains(regexString) == false) throw XssVulnerableStringException()
-        if (this.requirements?.educationDegree?.contains(regexString) == false) throw XssVulnerableStringException()
-        if (this.requirements?.otherReqs?.contains(regexString) == false) throw XssVulnerableStringException()
+        if (!title!!.contains(regexString)) throw XssVulnerableStringException()
+        if (description?.company?.contains(regexString) == false) throw XssVulnerableStringException()
+        if (description?.phoneNum?.contains(regexString) == false) throw XssVulnerableStringException()
+        if (description?.schedule?.contains(regexString) == false) throw XssVulnerableStringException()
+        if (requirements?.educationDegree?.contains(regexString) == false) throw XssVulnerableStringException()
+        if (requirements?.otherReqs?.contains(regexString) == false) throw XssVulnerableStringException()
+        if (title == null || description == null || requirements == null ) throw NullableStringException()
     }
 
 

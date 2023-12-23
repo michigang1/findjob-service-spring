@@ -1,5 +1,6 @@
 package com.springcourse.findjob.controller.error
 
+import com.springcourse.findjob.expections.NullableStringException
 import com.springcourse.findjob.expections.WrongPathVariableException
 import com.springcourse.findjob.expections.WrongRequestParamException
 import com.springcourse.findjob.expections.XssVulnerableStringException
@@ -51,9 +52,9 @@ class RestResponseEntityExceptionHandler : ResponseEntityExceptionHandler() {
         return prepareResponse(ex, request, "Something went wrong", HttpStatus.INTERNAL_SERVER_ERROR)
     }
 
-    @ExceptionHandler(value = [XssVulnerableStringException::class])
+    @ExceptionHandler(value = [XssVulnerableStringException::class, NullableStringException::class])
     fun handleXssVulnerableStringException(ex: RuntimeException, request: WebRequest): ResponseEntity<Any>? {
-        return prepareResponse(ex, request, "XSS Vulnerable String", HttpStatus.BAD_REQUEST)
+        return prepareResponse(ex, request, "String is invalid or nullable", HttpStatus.BAD_REQUEST)
     }
 
     @ExceptionHandler(Exception::class)
