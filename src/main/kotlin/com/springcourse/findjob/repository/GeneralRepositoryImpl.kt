@@ -1,5 +1,6 @@
 package com.springcourse.findjob.repository
 
+import com.springcourse.findjob.expections.WrongPathVariableException
 import com.springcourse.findjob.models.User
 import com.springcourse.findjob.models.Vacancy
 import com.springcourse.findjob.models.VacancyDescription
@@ -32,6 +33,7 @@ class GeneralRepositoryImpl(@Autowired private val jdbcTemplate: JdbcTemplate) :
     }
 
     override fun upgradeVacancy(id: Int, vacancy: Vacancy): Int {
+        if (!existsById(id)) throw WrongPathVariableException()
         return jdbcTemplate.update(
             "UPDATE vacancy SET title = ?, company = ?, schedule = ?, phoneNum = ?, age = ?, experienceAge = ?, educationDegree = ?, otherReqs = ? WHERE id = ?",
             vacancy.title,
@@ -47,6 +49,7 @@ class GeneralRepositoryImpl(@Autowired private val jdbcTemplate: JdbcTemplate) :
     }
 
     override fun deleteVacancy(id: Int): Int {
+        if (!existsById(id)) throw WrongPathVariableException()
         return jdbcTemplate.update(
             "DELETE FROM vacancy WHERE id = ?",
             id,
@@ -174,6 +177,29 @@ val regexTitle = makeRegex(vacancyFilter.title ?: "")
                 ),
             )
         }
+    }
+
+    private fun existsById(id: Int): Boolean{
+        return jdbcTemplate.query(
+            "SELECT * FROM vacancy WHERE id = ?",
+            arrayOf(id),
+        ) { rs, _ ->
+            Vacancy(
+                rs.getInt("id"),
+                rs.getString("title"),
+                VacancyDescription(
+                    rs.getString("company"),
+                    rs.getString("schedule"),
+                    rs.getString("phoneNum"),
+                ),
+                VacancyRequirements(
+                    rs.getInt("age"),
+                    rs.getInt("experienceAge"),
+                    rs.getString("educationDegree"),
+                    rs.getString("otherReqs"),
+                ),
+            )
+        }.isNotEmpty()
     }
 
 }
