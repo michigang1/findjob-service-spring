@@ -1,19 +1,16 @@
 package com.springcourse.findjob.service
 
-import com.springcourse.findjob.models.User
-import com.springcourse.findjob.models.Vacancy
+import com.springcourse.findjob.models.VacancyDto
 
 interface GeneralService{
-    fun createVacancy(vacancy: Vacancy): Int
-    fun upgradeVacancy(id: Int, vacancy: Vacancy)
+    fun createVacancy(vacancyDto: VacancyDto)
+    fun upgradeVacancy(id: Int, vacancyDto: VacancyDto)
     fun deleteVacancy(id: Int)
-    fun getAllVacancies(): List<Vacancy>
-    fun getCompanyVacancies(name: String): List<Vacancy>
-    fun getVacancyById(id: Int): Vacancy
-    fun getByKeyWordVacancy(keyWord: String): List<Vacancy>
-    fun getByFilter(vacancyFilter: Vacancy): List<Vacancy>
+    fun getAllVacancies(): List<VacancyDto>
+    fun getCompanyVacancies(name: String): List<VacancyDto>
+    fun getVacancyById(id: Int): VacancyDto
+    fun getByKeyWordVacancy(keyWord: String): List<VacancyDto>
+    fun getByFilter(vacancyDtoFilter: VacancyDto): List<VacancyDto>
 
-    fun getUserByName(name: String): User
-
-    fun getVacanciesByAge(age: Int): List<Vacancy>
+    fun getVacanciesByAge(age: Int): List<VacancyDto>
 }

@@ -1,9 +1,6 @@
 package com.springcourse.findjob.controller.error
 
-import com.springcourse.findjob.expections.NullableStringException
-import com.springcourse.findjob.expections.WrongPathVariableException
-import com.springcourse.findjob.expections.WrongRequestParamException
-import com.springcourse.findjob.expections.XssVulnerableStringException
+import com.springcourse.findjob.expections.*
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
@@ -40,6 +37,11 @@ class RestResponseEntityExceptionHandler : ResponseEntityExceptionHandler() {
     @ExceptionHandler(value = [WrongPathVariableException::class])
     fun handleWrongPathVariableException(ex: RuntimeException, request: WebRequest): ResponseEntity<Any>? {
         return prepareResponse(ex, request, "Wrong path variable", HttpStatus.NOT_FOUND)
+    }
+
+    @ExceptionHandler(value = [NoDataFoundByIdException::class])
+    fun handleNoDataFoundByIdException(ex: RuntimeException, request: WebRequest): ResponseEntity<Any>? {
+        return prepareResponse(ex, request, "Data is not found by this ID", HttpStatus.NOT_FOUND)
     }
 
     @ExceptionHandler(value = [WrongRequestParamException::class])

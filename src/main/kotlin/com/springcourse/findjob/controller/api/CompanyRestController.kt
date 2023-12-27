@@ -1,16 +1,16 @@
 package com.springcourse.findjob.controller.api
 
-import com.springcourse.findjob.models.Vacancy
+import com.springcourse.findjob.models.VacancyDto
 import org.springframework.http.ResponseEntity
 
 interface CompanyRestController {
-    fun getCompanyVacancies(company: String): ResponseEntity<Any>
+    fun getCompanyVacancies(company: String): ResponseEntity<List<VacancyDto>>
 
-    fun getVacancyById(id: Int): ResponseEntity<Any>
+    fun getVacancyById(id: Int): ResponseEntity<VacancyDto>
 
-    fun createVacancy(vacancy: Vacancy, company: String): ResponseEntity<Int>
+    fun createVacancy(vacancyDto: VacancyDto, company: String)
 
-    fun upgradeVacancy(id: Int, vacancy: Vacancy)
+    fun upgradeVacancy(id: Int, vacancyDto: VacancyDto)
 
     fun deleteVacancy(id: Int, company: String)
 }

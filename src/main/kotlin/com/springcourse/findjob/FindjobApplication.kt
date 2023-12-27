@@ -13,30 +13,30 @@ class FindjobApplication {
     // singleton bean (repo stub)
     @Primary
     @Bean
-    fun initialVacancies(): List<Vacancy> {
-        val list = mutableListOf<Vacancy>()
+    fun initialVacancies(): List<VacancyDto> {
+        val list = mutableListOf<VacancyDto>()
         list.add(
-            Vacancy(
+            VacancyDto(
                 list.count(),
                 "Java developer",
-                VacancyDescription(company = "oracle", phoneNum = "88005553535"),
-                VacancyRequirements(educationDegree = "Bachelor of Software Engineering"),
+                VacancyDescriptionDto(company = "oracle", phoneNum = "88005553535"),
+                VacancyRequirementsDto(educationDegree = "Bachelor of Software Engineering"),
             ),
         )
         list.add(
-            Vacancy(
+            VacancyDto(
                 list.count(),
                 "Unity developer",
-                VacancyDescription(company = "Unity", phoneNum = "88005553535", schedule = "Full time"),
-                VacancyRequirements(),
+                VacancyDescriptionDto(company = "Unity", phoneNum = "88005553535", schedule = "Full time"),
+                VacancyRequirementsDto(),
             ),
         )
         list.add(
-            Vacancy(
+            VacancyDto(
                 list.count(),
                 "Waiter",
-                VacancyDescription(company = "Clode Monet"),
-                VacancyRequirements(),
+                VacancyDescriptionDto(company = "Clode Monet"),
+                VacancyRequirementsDto(),
             ),
         )
         return list

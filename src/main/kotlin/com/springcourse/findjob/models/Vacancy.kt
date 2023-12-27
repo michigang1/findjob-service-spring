@@ -1,28 +1,46 @@
 package com.springcourse.findjob.models
 
 import jakarta.persistence.*
-import org.hibernate.annotations.JdbcTypeCode
-import org.hibernate.annotations.ManyToAny
-import org.hibernate.type.SqlTypes
 
 @Entity
 @Table(name = "vacancy", schema = "findjob")
+@NamedNativeQuery(
+    name = "Vacancy.getById",
+    query = "SELECT * FROM vacancy WHERE id = ?",
+    resultClass = Vacancy::class
+)
+
+@NamedNativeQuery(
+    name = "Vacancy.getAll",
+    query = "SELECT * FROM vacancy",
+    resultClass = Vacancy::class
+)
 data class Vacancy(
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    @JdbcTypeCode(SqlTypes.INTEGER)
-    @Column(name = "id", nullable = false)
     val id: Int = 0,
-
-    @Column(name = "title", nullable = false)
+    @Column(name = "title")
     val title: String = "",
 
-    @OneToOne
-    @JoinColumn(name = "descriptionId", nullable = false)
-    val description: VacancyDescription,
+    @Column(name = "company")
+    val company: String = "",
 
-    @OneToOne
-    @JoinColumn(name = "requirementsId", nullable = false)
-    var requirementsId: VacancyRequirements
-) {
+    @Column(name = "schedule")
+    val schedule: String? = "",
 
-}
+    @Column(name = "phoneNum")
+    val phoneNum: String? = "",
+
+    @Column(name = "age")
+    val age: Int? = 0,
+
+    @Column(name = "experienceAge")
+    val experienceAge: Int? = 0,
+
+    @Column(name = "educationDegree")
+    val educationDegree: String? = "",
+
+    @Column(name = "otherReqs")
+    val otherReqs: String? = ""
+
+
+)

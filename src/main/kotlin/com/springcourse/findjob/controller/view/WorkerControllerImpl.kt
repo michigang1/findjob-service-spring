@@ -1,8 +1,8 @@
 package com.springcourse.findjob.controller.view
 
-import com.springcourse.findjob.models.Vacancy
-import com.springcourse.findjob.models.VacancyDescription
-import com.springcourse.findjob.models.VacancyRequirements
+import com.springcourse.findjob.models.VacancyDto
+import com.springcourse.findjob.models.VacancyDescriptionDto
+import com.springcourse.findjob.models.VacancyRequirementsDto
 import com.springcourse.findjob.service.GeneralService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
@@ -24,7 +24,7 @@ class WorkerControllerImpl(@Autowired private val generalService: GeneralService
         mav.addObject("allVacancies", paginated[page])
         mav.addObject("pageCount", paginated.count())
         mav.addObject("pageSize", pageSize)
-        mav.addObject("vacancyFilter", Vacancy(description = VacancyDescription(), requirements = VacancyRequirements()))
+        mav.addObject("vacancyFilter", VacancyDto(description = VacancyDescriptionDto(), requirements = VacancyRequirementsDto()))
         return mav
     }
 
@@ -39,7 +39,7 @@ class WorkerControllerImpl(@Autowired private val generalService: GeneralService
         mav.addObject("allVacancies", generalService.getByKeyWordVacancy(keyWord))
         mav.addObject("pageCount", 0)
         mav.addObject("pageSize", pageSize)
-        mav.addObject("vacancyFilter", Vacancy(description = VacancyDescription(), requirements = VacancyRequirements()))
+        mav.addObject("vacancyFilter", VacancyDto(description = VacancyDescriptionDto(), requirements = VacancyRequirementsDto()))
         return mav
     }
 
@@ -48,17 +48,17 @@ class WorkerControllerImpl(@Autowired private val generalService: GeneralService
         @PathVariable("username") username: String,
         @RequestParam("page", defaultValue = "0") page: Int,
         @RequestParam("size", defaultValue = "10") pageSize: Int,
-        @ModelAttribute("vacancyFilter") vacancyFilter: Vacancy
+        @ModelAttribute("vacancyFilter") vacancyDtoFilter: VacancyDto
     ): ModelAndView {
-        println(vacancyFilter)
+        println(vacancyDtoFilter)
         val mav = ModelAndView("worker")
-        mav.addObject("allVacancies", generalService.getByFilter(vacancyFilter))
+        mav.addObject("allVacancies", generalService.getByFilter(vacancyDtoFilter))
         mav.addObject("pageCount", 0)
         mav.addObject("pageSize", pageSize)
         return mav
     }
 
-    fun paginate(pageSize: Int, vacancies: List<Vacancy>) : List<List<Vacancy>> {
+    fun paginate(pageSize: Int, vacancies: List<VacancyDto>) : List<List<VacancyDto>> {
         return vacancies.chunked(pageSize)
     }
 }

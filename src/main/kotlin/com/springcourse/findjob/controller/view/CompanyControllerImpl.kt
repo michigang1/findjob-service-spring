@@ -1,8 +1,8 @@
 package com.springcourse.findjob.controller.view
 
-import com.springcourse.findjob.models.Vacancy
-import com.springcourse.findjob.models.VacancyDescription
-import com.springcourse.findjob.models.VacancyRequirements
+import com.springcourse.findjob.models.VacancyDto
+import com.springcourse.findjob.models.VacancyDescriptionDto
+import com.springcourse.findjob.models.VacancyRequirementsDto
 import com.springcourse.findjob.service.GeneralService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -22,9 +22,9 @@ class CompanyControllerImpl(private val generalService: GeneralService) {
     }
 
     @PostMapping("/create")
-    fun createVacancy(@PathVariable company: String, @ModelAttribute("vacancyAdd") vacancy: Vacancy, model: Model): ModelAndView {
+    fun createVacancy(@PathVariable company: String, @ModelAttribute("vacancyAdd") vacancyDto: VacancyDto, model: Model): ModelAndView {
         val view = ModelAndView("redirect:/company/$company/vacancies/")
-        generalService.createVacancy(vacancy)
+        generalService.createVacancy(vacancyDto)
         return view
     }
 
@@ -33,10 +33,10 @@ class CompanyControllerImpl(private val generalService: GeneralService) {
         val mav = ModelAndView("create")
         mav.addObject(
             "vacancyAdd",
-            Vacancy(
+            VacancyDto(
                 id = 0,
-                description = VacancyDescription(company = company),
-                requirements = VacancyRequirements(),
+                description = VacancyDescriptionDto(company = company),
+                requirements = VacancyRequirementsDto(),
             ),
         )
         return mav
@@ -45,10 +45,10 @@ class CompanyControllerImpl(private val generalService: GeneralService) {
     @PostMapping("/save")
     fun upgradeVacancy(
         @PathVariable("company") company: String,
-        @ModelAttribute("vacancyEdit") vacancyEdit: Vacancy,
+        @ModelAttribute("vacancyEdit") vacancyDtoEdit: VacancyDto,
     ): ModelAndView {
         val view = ModelAndView("redirect:http://localhost:8080/company/$company/vacancies/")
-        generalService.upgradeVacancy(vacancyEdit.id, vacancyEdit)
+        generalService.upgradeVacancy(vacancyDtoEdit.id, vacancyDtoEdit)
         return view
     }
 
