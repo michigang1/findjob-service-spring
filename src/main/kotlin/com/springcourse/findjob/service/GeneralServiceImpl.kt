@@ -49,8 +49,8 @@ class GeneralServiceImpl(private val generalRepository: GeneralCrudRepository) :
 
     override fun getByKeyWordVacancy(keyWord: String): List<VacancyDto> {
         if (!keyWord.contains(regexString)) throw XssVulnerableStringException()
-        if (generalRepository.getByTitleStartingWith(keyWord).isEmpty()) throw WrongRequestParamException()
-        return generalRepository.getByTitleStartingWith(keyWord).map { it.toVacancyDto() }
+        if (generalRepository.findByTitleContaining(keyWord).isEmpty()) throw WrongRequestParamException()
+        return generalRepository.findByTitleContaining(keyWord).map { it.toVacancyDto() }
     }
     override fun getByFilter(vacancyDtoFilter: VacancyDto): List<VacancyDto> {
         val list =  generalRepository.getAll()

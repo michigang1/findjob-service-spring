@@ -29,7 +29,7 @@ interface GeneralCrudRepository: CrudRepository<Vacancy, Long> {
     fun getById(id: Int): Vacancy?
 
 
-    fun getByTitleStartingWith(@Param("title")title: String): List<Vacancy>
+    fun findByTitleContaining(@Param("title")title: String): List<Vacancy>
 
     @Query("from Vacancy v where v.age=?1")
     fun getByAge(age: Int): List<Vacancy>
