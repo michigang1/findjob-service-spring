@@ -1,10 +1,7 @@
 package com.springcourse.findjob.service
 
 import com.springcourse.findjob.expections.*
-import com.springcourse.findjob.models.Vacancy
-import com.springcourse.findjob.models.VacancyDescriptionDto
-import com.springcourse.findjob.models.VacancyDto
-import com.springcourse.findjob.models.VacancyRequirementsDto
+import com.springcourse.findjob.models.*
 import com.springcourse.findjob.repository.GeneralCrudRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Isolation
@@ -111,8 +108,6 @@ class GeneralServiceImpl(private val generalRepository: GeneralCrudRepository) :
         VacancyDescriptionDto(company,schedule,phoneNum),
         VacancyRequirementsDto(age, experienceAge, educationDegree, otherReqs)
     )
-
-
 
     companion object {
         val regexString = Regex("^[a-zA-Z0-9 .,?!@#\$%^&*()_+-=;:'\"|\\\\/]*\$")

@@ -40,7 +40,6 @@ data class Vacancy(
     val educationDegree: String? = "",
 
     @Column(name = "otherReqs")
-    val otherReqs: String? = ""
-
+    val otherReqs: String? = "",
 
 )
